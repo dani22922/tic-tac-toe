@@ -1,0 +1,50 @@
+body {
+    background-color: #323232;
+    font-family: "Open Sans", sans-serif;
+    margin: 0;
+    color: white;
+}
+
+#content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 300px;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+table {
+    width: 300px;
+    /* Breite der Tabelle anpassen */
+    height: 300px;
+    /* Höhe der Tabelle anpassen */
+}
+
+td {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 24px;
+    border: 1px solid white;
+}
+
+/* Trennlinien der inneren Zellen */
+td:first-child {
+    border-left: none;
+}
+
+td:last-child {
+    border-right: none;
+}
+
+tr:first-child td {
+    border-top: none;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
