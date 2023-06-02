@@ -3,6 +3,7 @@ body {
     font-family: "Open Sans", sans-serif;
     margin: 0;
     color: white;
+
 }
 
 #content {
@@ -11,6 +12,31 @@ body {
     align-items: center;
     margin-top: 300px;
 }
+
+.restart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 120px;
+
+}
+
+.restart button {
+    background-color: white;
+    color: blue;
+    height: 60px;
+    width: 100px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.restart button:hover {
+    color: white;
+    text-decoration: underline;
+    background-color: black;
+}
+
+
 
 h1 {
     color: white;
@@ -30,6 +56,11 @@ td {
     text-align: center;
     font-size: 24px;
     border: 1px solid white;
+    cursor: pointer;
+}
+
+td:hover {
+    background-color: lightseagreen;
 }
 
 /* Trennlinien der inneren Zellen */

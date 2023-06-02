@@ -1,11 +1,13 @@
 let fields = [
-    null, null, 'circle', null, 'cross', null, null, null, null
+    null, null, null, null, null, null, null, null, null
 ];
 
+let currentPlayer = 'circle';
+
 function init() {
-    // Rufe die render-Funktion auf, um die Tabelle zu generieren
     render();
 }
+
 function render() {
     let content = document.getElementById("content");
     let table = "<table>";
@@ -13,22 +15,80 @@ function render() {
     for (let i = 0; i < 3; i++) {
         table += "<tr>";
         for (let j = 0; j < 3; j++) {
-            let cell = "<td>";
+            let cell = "<td onclick=\"handleClick(" + index + ")\">";
             let fieldValue = fields[index];
             if (fieldValue === 'circle') {
                 cell += generateCircleSVG();
             } else if (fieldValue === 'cross') {
-                cell += generateXSVG();
+                cell += generateCrossSVG();
             }
             cell += "</td>";
             table += cell;
             index++;
         }
-
         table += "</tr>";
     }
     table += "</table>";
     content.innerHTML = table;
+    checkGameOver();
+}
+
+function handleClick(index) {
+    let fieldValue = fields[index];
+    let cell = document.getElementsByTagName("td")[index];
+    if (fieldValue === null) {
+        fields[index] = currentPlayer;
+        cell.innerHTML = (currentPlayer === 'circle') ? generateCircleSVG() : generateXSVG();
+        cell.onclick = null;
+        currentPlayer = (currentPlayer === 'circle') ? 'cross' : 'circle';
+        checkGameOver();
+    }
+}
+
+function checkGameOver() {
+    const winningCombinations = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // horizontal
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // vertical
+        [0, 4, 8], [2, 4, 6] // diagonal
+    ];
+
+    for (const combination of winningCombinations) {
+        const [a, b, c] = combination;
+        if (
+            fields[a] !== null &&
+            fields[a] === fields[b] &&
+            fields[a] === fields[c]
+        ) {
+            drawWinningLine(a, b, c);
+            showRestartButton();
+            return;
+        }
+    }
+    if (fields.every(field => field !== null)) {
+        showRestartButton();
+    }
+}
+
+function drawWinningLine(a, b, c) {
+    let cells = document.getElementsByTagName("td");
+    cells[a].style.backgroundColor = "white";
+    cells[b].style.backgroundColor = "white";
+    cells[c].style.backgroundColor = "white";
+}
+
+function showRestartButton() {
+    let restartButton = document.getElementById("restartButton");
+    restartButton.style.display = "block";
+}
+
+function restartGame() {
+    let restartButton = document.getElementById("restartButton");
+    restartButton.style.display = "none";
+    fields = [
+        null, null, null, null, null, null, null, null, null
+    ];
+    currentPlayer = 'circle';
+    render();
 }
 
 function generateCircleSVG() {
